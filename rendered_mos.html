@@ -1,400 +1,713 @@
 <!doctype html>
 <html>
 <head>
-    <title>MOS Experiment Form 1</title>
+    <title>MOS Experiment</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
         integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <style>
+        .page { display: none; }
+        .page.active { display: block; }
+        .progress-bar-container { background:#e9ecef; border-radius:4px; height:8px; margin-bottom:20px; }
+        .progress-bar-fill { background:#17a2b8; height:8px; border-radius:4px; transition:width 0.3s; }
+        .question { margin-bottom:20px; border:1px solid #dee2e6; border-radius:4px; }
+        .card-header { background:#f8f9fa; padding:10px 15px; font-weight:bold; }
+        .card-body { padding:15px; }
+    </style>
 </head>
 <body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            
-    <h1 class="display-4">MOS Experiment</h1>
-    <p class="lead">Synthetic Speech Quality Evaluation</p>
-    <hr class="my-4">
-    <p>
-        Welcome to our experiment, which is a Mean Opinion Score (MOS) test for evaluating our Text-to-Speech (TTS) system. 
-        In this test, you will listen to a series of audio files that contain a mix of both <b>real human recordings</b> and <b>synthesized voices</b>.
-        Please make sure to use headphones for the best experience.
-    </p>
-    <p>
-        We kindly ask you to rate the quality of each audio file based on the following scale:
-    <ul>
-        <li><b>1 (Very Bad)</b>: The audio is highly distorted, difficult to understand, and unpleasant to listen to.</li>
-        <li><b>2 (Bad)</b>: The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</li>
-        <li><b>3 (Fair)</b>: The audio is somewhat clear, but there are some issues that slightly affect its quality.</li>
-        <li><b>4 (Good)</b>: The audio is clear and pleasant to listen to, with only minor issues.</li>
-        <li><b>5 (Very Good)</b>: The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</li>
-    </ul>
-    </p>
-    <p>
-        Your feedback is crucial for us to improve our TTS system. Thank you for your participation!
-    </p>
-
-
+            <h1 class="display-4">MOS Experiment</h1>
+            <p class="lead">Synthetic Speech Quality Evaluation — Part 1 of 2</p>
+            <hr class="my-4">
+            <p>Welcome! You will evaluate <b>two sets</b> of audio samples. Please rate each audio from 1 to 5:</p>
+            <ul>
+                <li><b>5 (Very Good)</b>: Exceptionally clear, natural, and pleasant.</li>
+                <li><b>4 (Good)</b>: Clear and pleasant with only minor issues.</li>
+                <li><b>3 (Fair)</b>: Somewhat clear but with some issues.</li>
+                <li><b>2 (Bad)</b>: Noticeable issues, uncomfortable to listen to.</li>
+                <li><b>1 (Very Bad)</b>: Highly distorted, difficult to understand.</li>
+            </ul>
+            <p>Please use headphones for the best experience.</p>
         </div>
     </div>
-    <div class="container" id="form_container">
-        <form id="theForm">
-            <div class="form-group">
-                <label for="name">Gender:</label>
-                <select class="form-control" name="name" required>
-                    <option value="" disabled selected>Select your gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-                <small class="form-text text-muted">Required*</small>
-            </div>
-            <input type="text" name="type" value="q-MOS" hidden>
-            
-    
-        <div class="question" data-question-id="1">
+    <div class="container">
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width:50%"></div>
+        </div>
+        <p class="text-muted">Part 1 of 2</p>
+        <div class="form-group">
+            <label>Gender:</label>
+            <select class="form-control" id="gender" required>
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <small class="form-text text-muted">Required*</small>
+        </div>
+        
+        <div class="question" data-question-id="1" data-model="1">
             <div class="card-header">Question 1</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00012.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00005.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_1" value="5" required>
-                    <label class="form-check-label" for="q1_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q1" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_2" value="4" required>
-                    <label class="form-check-label" for="q1_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q1" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_3" value="3" required>
-                    <label class="form-check-label" for="q1_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q1" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_4" value="2" required>
-                    <label class="form-check-label" for="q1_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q1" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_5" value="1" required>
-                    <label class="form-check-label" for="q1_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q1" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="2">
+        <div class="question" data-question-id="2" data-model="1">
             <div class="card-header">Question 2</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00017.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00012.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_1" value="5" required>
-                    <label class="form-check-label" for="q2_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q2" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_2" value="4" required>
-                    <label class="form-check-label" for="q2_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q2" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_3" value="3" required>
-                    <label class="form-check-label" for="q2_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q2" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_4" value="2" required>
-                    <label class="form-check-label" for="q2_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q2" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_5" value="1" required>
-                    <label class="form-check-label" for="q2_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q2" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="3">
+        <div class="question" data-question-id="3" data-model="1">
             <div class="card-header">Question 3</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00033.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00027.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_1" value="5" required>
-                    <label class="form-check-label" for="q3_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q3" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_2" value="4" required>
-                    <label class="form-check-label" for="q3_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q3" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_3" value="3" required>
-                    <label class="form-check-label" for="q3_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q3" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_4" value="2" required>
-                    <label class="form-check-label" for="q3_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q3" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_5" value="1" required>
-                    <label class="form-check-label" for="q3_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q3" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="4">
+        <div class="question" data-question-id="4" data-model="1">
             <div class="card-header">Question 4</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00004.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00002.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q4" id="q4_1" value="5" required>
-                    <label class="form-check-label" for="q4_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q4" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q4" id="q4_2" value="4" required>
-                    <label class="form-check-label" for="q4_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q4" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q4" id="q4_3" value="3" required>
-                    <label class="form-check-label" for="q4_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q4" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q4" id="q4_4" value="2" required>
-                    <label class="form-check-label" for="q4_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q4" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q4" id="q4_5" value="1" required>
-                    <label class="form-check-label" for="q4_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q4" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="5">
+        <div class="question" data-question-id="5" data-model="1">
             <div class="card-header">Question 5</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00018.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00023.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q5" id="q5_1" value="5" required>
-                    <label class="form-check-label" for="q5_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q5" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q5" id="q5_2" value="4" required>
-                    <label class="form-check-label" for="q5_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q5" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q5" id="q5_3" value="3" required>
-                    <label class="form-check-label" for="q5_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q5" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q5" id="q5_4" value="2" required>
-                    <label class="form-check-label" for="q5_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q5" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q5" id="q5_5" value="1" required>
-                    <label class="form-check-label" for="q5_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q5" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="6">
+        <div class="question" data-question-id="6" data-model="1">
             <div class="card-header">Question 6</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00005.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00024.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q6" id="q6_1" value="5" required>
-                    <label class="form-check-label" for="q6_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q6" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q6" id="q6_2" value="4" required>
-                    <label class="form-check-label" for="q6_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q6" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q6" id="q6_3" value="3" required>
-                    <label class="form-check-label" for="q6_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q6" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q6" id="q6_4" value="2" required>
-                    <label class="form-check-label" for="q6_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q6" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q6" id="q6_5" value="1" required>
-                    <label class="form-check-label" for="q6_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q6" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="7">
+        <div class="question" data-question-id="7" data-model="1">
             <div class="card-header">Question 7</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00029.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00039.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q7" id="q7_1" value="5" required>
-                    <label class="form-check-label" for="q7_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q7" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q7" id="q7_2" value="4" required>
-                    <label class="form-check-label" for="q7_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q7" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q7" id="q7_3" value="3" required>
-                    <label class="form-check-label" for="q7_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q7" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q7" id="q7_4" value="2" required>
-                    <label class="form-check-label" for="q7_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q7" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q7" id="q7_5" value="1" required>
-                    <label class="form-check-label" for="q7_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q7" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="8">
+        <div class="question" data-question-id="8" data-model="1">
             <div class="card-header">Question 8</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00035.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00013.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q8" id="q8_1" value="5" required>
-                    <label class="form-check-label" for="q8_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q8" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q8" id="q8_2" value="4" required>
-                    <label class="form-check-label" for="q8_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q8" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q8" id="q8_3" value="3" required>
-                    <label class="form-check-label" for="q8_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q8" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q8" id="q8_4" value="2" required>
-                    <label class="form-check-label" for="q8_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q8" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q8" id="q8_5" value="1" required>
-                    <label class="form-check-label" for="q8_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q8" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="9">
+        <div class="question" data-question-id="9" data-model="1">
             <div class="card-header">Question 9</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00011.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00010.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q9" id="q9_1" value="5" required>
-                    <label class="form-check-label" for="q9_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q9" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q9" id="q9_2" value="4" required>
-                    <label class="form-check-label" for="q9_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q9" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q9" id="q9_3" value="3" required>
-                    <label class="form-check-label" for="q9_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q9" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q9" id="q9_4" value="2" required>
-                    <label class="form-check-label" for="q9_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q9" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q9" id="q9_5" value="1" required>
-                    <label class="form-check-label" for="q9_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q9" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="10">
+        <div class="question" data-question-id="10" data-model="1">
             <div class="card-header">Question 10</div>
             <div class="card-body">
-                <p>
-                    <audio controls src="wav/00015.wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                </p>
+                <audio controls src="wav/00021.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q10" id="q10_1" value="5" required>
-                    <label class="form-check-label" for="q10_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q10" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q10" id="q10_2" value="4" required>
-                    <label class="form-check-label" for="q10_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                    <input class="form-check-input" type="radio" name="m1_q10" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q10" id="q10_3" value="3" required>
-                    <label class="form-check-label" for="q10_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                    <input class="form-check-input" type="radio" name="m1_q10" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q10" id="q10_4" value="2" required>
-                    <label class="form-check-label" for="q10_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                    <input class="form-check-input" type="radio" name="m1_q10" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q10" id="q10_5" value="1" required>
-                    <label class="form-check-label" for="q10_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                    <input class="form-check-input" type="radio" name="m1_q10" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
                 </div>
             </div>
         </div>
-    
+        <br>
+        <button class="btn btn-info btn-lg" onclick="goToPage2()">Next → Part 2</button>
+        <p class="text-muted mt-2"><small>Please answer all questions and select your gender before continuing.</small></p>
+    </div>
+</div>
 
-            <input type="text" name="formid" value="1" hidden>
-            <input type="text" name="thank" value="Thank you for participating!" hidden>
-            <input class="btn btn-info btn-lg" type="submit" value="Submit Results" id="submitBtn">
-            <p class="text-muted">
-                <small>If you encounter any issues submitting the results, please double-check if you have filled in your gender and answered every question. Thank you.</small>
-            </p>
-        </form>
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">MOS Experiment</h1>
+            <p class="lead">Synthetic Speech Quality Evaluation — Part 2 of 2</p>
+            <hr class="my-4">
+            <p>You are now on the second and final set. Please rate each audio from 1 to 5 using the same scale.</p>
+        </div>
     </div>
-    <div class="container" style="padding-top: 60px;">
-        <p class="text-center text-muted">&copy; CHI, MRI, TUM</p>
+    <div class="container">
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width:100%"></div>
+        </div>
+        <p class="text-muted">Part 2 of 2</p>
+        
+        <div class="question" data-question-id="1" data-model="2">
+            <div class="card-header">Question 1</div>
+            <div class="card-body">
+                <audio controls src="wav2/00029.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q1" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q1" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q1" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q1" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q1" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="2" data-model="2">
+            <div class="card-header">Question 2</div>
+            <div class="card-body">
+                <audio controls src="wav2/00000.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q2" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q2" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q2" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q2" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q2" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="3" data-model="2">
+            <div class="card-header">Question 3</div>
+            <div class="card-body">
+                <audio controls src="wav2/00005.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q3" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q3" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q3" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q3" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q3" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="4" data-model="2">
+            <div class="card-header">Question 4</div>
+            <div class="card-body">
+                <audio controls src="wav2/00012.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q4" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q4" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q4" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q4" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q4" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="5" data-model="2">
+            <div class="card-header">Question 5</div>
+            <div class="card-body">
+                <audio controls src="wav2/00025.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q5" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q5" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q5" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q5" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q5" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="6" data-model="2">
+            <div class="card-header">Question 6</div>
+            <div class="card-body">
+                <audio controls src="wav2/00016.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q6" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q6" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q6" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q6" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q6" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="7" data-model="2">
+            <div class="card-header">Question 7</div>
+            <div class="card-body">
+                <audio controls src="wav2/00002.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q7" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q7" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q7" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q7" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q7" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="8" data-model="2">
+            <div class="card-header">Question 8</div>
+            <div class="card-body">
+                <audio controls src="wav2/00022.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q8" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q8" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q8" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q8" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q8" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="9" data-model="2">
+            <div class="card-header">Question 9</div>
+            <div class="card-body">
+                <audio controls src="wav2/00036.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q9" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q9" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q9" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q9" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q9" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <div class="question" data-question-id="10" data-model="2">
+            <div class="card-header">Question 10</div>
+            <div class="card-body">
+                <audio controls src="wav2/00027.wav" style="width:100%;margin-bottom:10px;">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q10" value="5" required>
+                    <label class="form-check-label">5 — Very Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q10" value="4" required>
+                    <label class="form-check-label">4 — Good</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q10" value="3" required>
+                    <label class="form-check-label">3 — Fair</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q10" value="2" required>
+                    <label class="form-check-label">2 — Bad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="m2_q10" value="1" required>
+                    <label class="form-check-label">1 — Very Bad</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-info btn-lg" onclick="submitAll()">Submit All Results</button>
+        <p class="text-muted mt-2"><small>Please answer all questions before submitting.</small></p>
     </div>
+</div>
+
+<div class="container" style="padding-top:60px;">
+    <p class="text-center text-muted">&copy; MOS Evaluation</p>
+</div>
+
 <script>
-        document.getElementById('theForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const questions = document.querySelectorAll('.question');
-            let textData = '';
-            textData += `Gender: ${document.querySelector('select[name="name"]').value}\n`;
-            questions.forEach(question => {
-                const questionId = question.getAttribute('data-question-id');
-                const selectedOption = question.querySelector('input[type="radio"]:checked');
-                if (selectedOption) {
-                    textData += `Question ${questionId}: ${selectedOption.value}\n`;
-                } else {
-                    textData += `Question ${questionId}: No answer\n`;
-                }
-            });
-            const blob = new Blob([textData], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `mos_results.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-    </script>
+function goToPage2() {
+    const gender = document.getElementById('gender').value;
+    if (!gender) { alert('Please select your gender.'); return; }
+    const questions = document.querySelectorAll('#page1 .question');
+    for (let q of questions) {
+        const checked = q.querySelector('input[type=radio]:checked');
+        if (!checked) { alert('Please answer all questions in Part 1 before continuing.'); return; }
+    }
+    document.getElementById('page1').classList.remove('active');
+    document.getElementById('page2').classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function submitAll() {
+    const questions = document.querySelectorAll('#page2 .question');
+    for (let q of questions) {
+        const checked = q.querySelector('input[type=radio]:checked');
+        if (!checked) { alert('Please answer all questions in Part 2 before submitting.'); return; }
+    }
+    const gender = document.getElementById('gender').value;
+    let text = 'Gender: ' + gender + '\n\n';
+    text += '--- Model 1 ---\n';
+    document.querySelectorAll('#page1 .question').forEach(q => {
+        const id = q.getAttribute('data-question-id');
+        const audio = q.querySelector('audio').src.split('/').pop();
+        const score = q.querySelector('input[type=radio]:checked').value;
+        text += 'Question ' + id + ' (' + audio + '): ' + score + '\n';
+    });
+    text += '\n--- Model 2 ---\n';
+    document.querySelectorAll('#page2 .question').forEach(q => {
+        const id = q.getAttribute('data-question-id');
+        const audio = q.querySelector('audio').src.split('/').pop();
+        const score = q.querySelector('input[type=radio]:checked').value;
+        text += 'Question ' + id + ' (' + audio + '): ' + score + '\n';
+    });
+    const blob = new Blob([text], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'mos_results.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    alert('Thank you! Please send the downloaded file to the researcher.');
+}
+</script>
 </body>
 </html>
