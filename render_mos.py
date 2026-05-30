@@ -24,15 +24,14 @@ def make_question_html(q, model):
         </div>"""
 
 def main():
-    # load all questions
     model1 = QuestionGenerator("filelist/audio_order.csv").questions
     model2 = QuestionGenerator("filelist/model2.csv").questions
+    model3 = QuestionGenerator("filelist/model3.csv").questions
 
-    # pick 10 random from each
     selected1 = random.sample(model1, 10)
     selected2 = random.sample(model2, 10)
+    selected3 = random.sample(model3, 10)
 
-    # renumber
     for i, q in enumerate(selected1, start=1):
         q["id"] = i
         q["title"] = f"Question {i}"
@@ -43,9 +42,14 @@ def main():
         q["title"] = f"Question {i}"
         q["name"] = f"m2_q{i}"
 
-    # build questions html
+    for i, q in enumerate(selected3, start=1):
+        q["id"] = i
+        q["title"] = f"Question {i}"
+        q["name"] = f"m3_q{i}"
+
     page1_questions = "".join(make_question_html(q, 1) for q in selected1)
     page2_questions = "".join(make_question_html(q, 2) for q in selected2)
+    page3_questions = "".join(make_question_html(q, 3) for q in selected3)
 
     html = """<!doctype html>
 <html>
@@ -72,9 +76,9 @@ def main():
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">MOS Experiment</h1>
-            <p class="lead">Synthetic Speech Quality Evaluation — Part 1 of 2</p>
+            <p class="lead">Synthetic Speech Quality Evaluation — Part 1 of 3</p>
             <hr class="my-4">
-            <p>Welcome! You will evaluate <b>two sets</b> of audio samples. Please rate each audio from 1 to 5:</p>
+            <p>Welcome! You will evaluate <b>three sets</b> of audio samples. Please rate each audio from 1 to 5:</p>
             <ul>
                 <li><b>5 (Very Good)</b>: Exceptionally clear, natural, and pleasant.</li>
                 <li><b>4 (Good)</b>: Clear and pleasant with only minor issues.</li>
@@ -87,9 +91,9 @@ def main():
     </div>
     <div class="container">
         <div class="progress-bar-container">
-            <div class="progress-bar-fill" style="width:50%"></div>
+            <div class="progress-bar-fill" style="width:33%"></div>
         </div>
-        <p class="text-muted">Part 1 of 2</p>
+        <p class="text-muted">Part 1 of 3</p>
         <div class="form-group">
             <label>Gender:</label>
             <select class="form-control" id="gender" required>
@@ -101,7 +105,7 @@ def main():
         </div>
         PAGE1_QUESTIONS
         <br>
-        <button class="btn btn-info btn-lg" onclick="goToPage2()">Next → Part 2</button>
+        <button class="btn btn-info btn-lg" onclick="goToPage(1, 2)">Next → Part 2</button>
         <p class="text-muted mt-2"><small>Please answer all questions and select your gender before continuing.</small></p>
     </div>
 </div>
@@ -111,17 +115,39 @@ def main():
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">MOS Experiment</h1>
-            <p class="lead">Synthetic Speech Quality Evaluation — Part 2 of 2</p>
+            <p class="lead">Synthetic Speech Quality Evaluation — Part 2 of 3</p>
             <hr class="my-4">
-            <p>You are now on the second and final set. Please rate each audio from 1 to 5 using the same scale.</p>
+            <p>Please rate each audio from 1 to 5 using the same scale.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width:66%"></div>
+        </div>
+        <p class="text-muted">Part 2 of 3</p>
+        PAGE2_QUESTIONS
+        <br>
+        <button class="btn btn-info btn-lg" onclick="goToPage(2, 3)">Next → Part 3</button>
+        <p class="text-muted mt-2"><small>Please answer all questions before continuing.</small></p>
+    </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">MOS Experiment</h1>
+            <p class="lead">Synthetic Speech Quality Evaluation — Part 3 of 3</p>
+            <hr class="my-4">
+            <p>You are on the final set. Please rate each audio from 1 to 5 using the same scale.</p>
         </div>
     </div>
     <div class="container">
         <div class="progress-bar-container">
             <div class="progress-bar-fill" style="width:100%"></div>
         </div>
-        <p class="text-muted">Part 2 of 2</p>
-        PAGE2_QUESTIONS
+        <p class="text-muted">Part 3 of 3</p>
+        PAGE3_QUESTIONS
         <br>
         <button class="btn btn-info btn-lg" onclick="submitAll()">Submit All Results</button>
         <p class="text-muted mt-2"><small>Please answer all questions before submitting.</small></p>
@@ -133,27 +159,33 @@ def main():
 </div>
 
 <script>
-function goToPage2() {
-    const gender = document.getElementById('gender').value;
-    if (!gender) { alert('Please select your gender.'); return; }
-    const questions = document.querySelectorAll('#page1 .question');
+function goToPage(from, to) {
+    if (from === 1) {
+        const gender = document.getElementById('gender').value;
+        if (!gender) { alert('Please select your gender.'); return; }
+    }
+    const questions = document.querySelectorAll('#page' + from + ' .question');
     for (let q of questions) {
         const checked = q.querySelector('input[type=radio]:checked');
-        if (!checked) { alert('Please answer all questions in Part 1 before continuing.'); return; }
+        if (!checked) {
+            alert('Please answer all questions in Part ' + from + ' before continuing.');
+            return;
+        }
     }
-    document.getElementById('page1').classList.remove('active');
-    document.getElementById('page2').classList.add('active');
+    document.getElementById('page' + from).classList.remove('active');
+    document.getElementById('page' + to).classList.add('active');
     window.scrollTo(0, 0);
 }
 
 function submitAll() {
-    const questions = document.querySelectorAll('#page2 .question');
+    const questions = document.querySelectorAll('#page3 .question');
     for (let q of questions) {
         const checked = q.querySelector('input[type=radio]:checked');
-        if (!checked) { alert('Please answer all questions in Part 2 before submitting.'); return; }
+        if (!checked) { alert('Please answer all questions in Part 3 before submitting.'); return; }
     }
     const gender = document.getElementById('gender').value;
     let text = 'Gender: ' + gender + '\\n\\n';
+
     text += '--- Model 1 ---\\n';
     document.querySelectorAll('#page1 .question').forEach(q => {
         const id = q.getAttribute('data-question-id');
@@ -161,6 +193,7 @@ function submitAll() {
         const score = q.querySelector('input[type=radio]:checked').value;
         text += 'Question ' + id + ' (' + audio + '): ' + score + '\\n';
     });
+
     text += '\\n--- Model 2 ---\\n';
     document.querySelectorAll('#page2 .question').forEach(q => {
         const id = q.getAttribute('data-question-id');
@@ -168,6 +201,15 @@ function submitAll() {
         const score = q.querySelector('input[type=radio]:checked').value;
         text += 'Question ' + id + ' (' + audio + '): ' + score + '\\n';
     });
+
+    text += '\\n--- Model 3 ---\\n';
+    document.querySelectorAll('#page3 .question').forEach(q => {
+        const id = q.getAttribute('data-question-id');
+        const audio = q.querySelector('audio').src.split('/').pop();
+        const score = q.querySelector('input[type=radio]:checked').value;
+        text += 'Question ' + id + ' (' + audio + '): ' + score + '\\n';
+    });
+
     const blob = new Blob([text], { type: 'text/plain' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -183,6 +225,7 @@ function submitAll() {
 
     html = html.replace("PAGE1_QUESTIONS", page1_questions)
     html = html.replace("PAGE2_QUESTIONS", page2_questions)
+    html = html.replace("PAGE3_QUESTIONS", page3_questions)
 
     with open("rendered_mos.html", "w") as f:
         f.write(html)
