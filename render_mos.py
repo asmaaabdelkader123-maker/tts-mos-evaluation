@@ -28,10 +28,22 @@ def main():
     model2 = QuestionGenerator("filelist/model2.csv").questions
     model3 = QuestionGenerator("filelist/model3.csv").questions
 
-    selected1 = random.sample(model1, 10)
-    selected2 = random.sample(model2, 10)
-    selected3 = random.sample(model3, 10)
+    # get just the filenames from model1 (strip folder prefix)
+    all_filenames = [q["audio_path"].split("/")[-1] for q in model1]
 
+    # pick 10 random filenames ONCE — same for all models
+    selected_filenames = random.sample(all_filenames, 10)
+
+    # filter each model's questions to only the selected filenames
+    def filter_questions(questions, filenames):
+        lookup = {q["audio_path"].split("/")[-1]: q for q in questions}
+        return [lookup[f] for f in filenames if f in lookup]
+
+    selected1 = filter_questions(model1, selected_filenames)
+    selected2 = filter_questions(model2, selected_filenames)
+    selected3 = filter_questions(model3, selected_filenames)
+
+    # renumber
     for i, q in enumerate(selected1, start=1):
         q["id"] = i
         q["title"] = f"Question {i}"
