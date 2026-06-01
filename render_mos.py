@@ -67,6 +67,16 @@ def main():
         .question { margin-bottom:20px; border:1px solid #dee2e6; border-radius:4px; }
         .card-header { background:#f8f9fa; padding:10px 15px; font-weight:bold; }
         .card-body { padding:15px; }
+        .nav-buttons { display:flex; align-items:center; gap:12px; margin-top:10px; }
+        .back-btn {
+            display:inline-flex; align-items:center; gap:6px;
+            background:none; border:1px solid #6c757d;
+            border-radius:4px; padding:8px 16px;
+            color:#6c757d; cursor:pointer; font-size:16px;
+            text-decoration:none; transition: all 0.2s;
+        }
+        .back-btn:hover { background:#f8f9fa; color:#343a40; border-color:#343a40; }
+        .back-arrow { font-size:20px; line-height:1; }
     </style>
 </head>
 <body>
@@ -105,7 +115,9 @@ def main():
         </div>
         PAGE1_QUESTIONS
         <br>
-        <button class="btn btn-info btn-lg" onclick="goToPage(1, 2)">Next → Part 2</button>
+        <div class="nav-buttons">
+            <button class="btn btn-info btn-lg" onclick="goToPage(1, 2)">Next → Part 2</button>
+        </div>
         <p class="text-muted mt-2"><small>Please answer all questions and select your gender before continuing.</small></p>
     </div>
 </div>
@@ -127,7 +139,12 @@ def main():
         <p class="text-muted">Part 2 of 3</p>
         PAGE2_QUESTIONS
         <br>
-        <button class="btn btn-info btn-lg" onclick="goToPage(2, 3)">Next → Part 3</button>
+        <div class="nav-buttons">
+            <button class="back-btn" onclick="goBack(2, 1)">
+                <span class="back-arrow">&#8592;</span> Back to Part 1
+            </button>
+            <button class="btn btn-info btn-lg" onclick="goToPage(2, 3)">Next → Part 3</button>
+        </div>
         <p class="text-muted mt-2"><small>Please answer all questions before continuing.</small></p>
     </div>
 </div>
@@ -149,7 +166,12 @@ def main():
         <p class="text-muted">Part 3 of 3</p>
         PAGE3_QUESTIONS
         <br>
-        <button class="btn btn-info btn-lg" onclick="submitAll()">Submit All Results</button>
+        <div class="nav-buttons">
+            <button class="back-btn" onclick="goBack(3, 2)">
+                <span class="back-arrow">&#8592;</span> Back to Part 2
+            </button>
+            <button class="btn btn-info btn-lg" onclick="submitAll()">Submit All Results</button>
+        </div>
         <p class="text-muted mt-2"><small>Please answer all questions before submitting.</small></p>
     </div>
 </div>
@@ -172,6 +194,12 @@ function goToPage(from, to) {
             return;
         }
     }
+    document.getElementById('page' + from).classList.remove('active');
+    document.getElementById('page' + to).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function goBack(from, to) {
     document.getElementById('page' + from).classList.remove('active');
     document.getElementById('page' + to).classList.add('active');
     window.scrollTo(0, 0);
